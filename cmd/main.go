@@ -21,7 +21,15 @@ func main() {
 		log.Fatal(err)
 	}
 
-	privateKey := "b4ee899ddfcd79ad081223361b2baa1385db18d32d8a2bdc54c92b74f1224996" // private key
+	privateKeyECDSA, err := crypto.GenerateKey()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	privateKey := hex.EncodeToString(privateKeyECDSA.D.Bytes())
+
+	fmt.Println("Приватный ключ:", privateKey)
+
 	contractABI := `[
 		{
 			"inputs": [],
